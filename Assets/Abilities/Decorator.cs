@@ -5,9 +5,9 @@ using UnityEngine;
 public class AbilityDecorator
 {
 	public float value;
-	public Effect effect;
+	public AbilityEffect effect;
 
-	public AbilityDecorator(float value, Effect effect)
+	public AbilityDecorator(float value, AbilityEffect effect)
 	{
 		this.value = value;
 		this.effect = effect;

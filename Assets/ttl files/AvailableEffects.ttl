@@ -1,0 +1,9 @@
+// Syntax: Effect:EffectName
+
+Effect:SelfHeal
+Effect:Burn
+Effect:Damage
+Effect:Empower
+Effect:Accellerate
+Effect:MakeVulnerable
+Effect:Defend

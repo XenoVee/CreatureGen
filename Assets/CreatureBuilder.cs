@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.TextCore.Text;
 
 public class CreatureBuilder
@@ -11,63 +12,70 @@ public class CreatureBuilder
 		creature = _creature;
 	}
 
-	public CreatureBuilder WithBaseHealth(int Health)
+	public CreatureBuilder WithBaseHealth(int _health)
 	{
-		creature.health = Health;
+		creature.maxHealth = _health;
+		creature.currentHealth = _health;
 		return (this);
 	}
-	public CreatureBuilder WithBaseSpeed(int speed)
+	public CreatureBuilder WithBaseSpeed(int _speed)
 	{
-		creature.speed = speed;
+		creature.speed = _speed;
 		return (this);
 	}
-	public CreatureBuilder WithBaseStrength(int strength)
+	public CreatureBuilder WithBaseStrength(int _strength)
 	{
-		creature.strength = strength;
+		creature.strength = _strength;
 		return (this);
 	}
-	public CreatureBuilder WithBaseAbilityPower(int abilityPower)
+	public CreatureBuilder WithBaseAbilityPower(int _abilityPower)
 	{
-		creature.abilityPower = abilityPower;
+		creature.abilityPower = _abilityPower;
 		return (this);
 	}
-	public CreatureBuilder WithTorso(Torso torso)
+	public CreatureBuilder WithTorso(Torso _torso, GameObject newObject)
 	{
-		creature.torso = torso;
-		torso.Apply(creature);
+		//creature.torso = _torso.Copy();
+		_torso.Apply(creature, newObject);
 		return (this);
 	}
-	public CreatureBuilder WithArms(Arm arm)
+	public CreatureBuilder WithArms(Arm _arm, GameObject newObject)
 	{
-		creature.arms = arm;
-		arm.Apply(creature);
+		//creature.arms = _arm.Copy();
+		_arm.Apply(creature, newObject);
 		return (this);
 	}
-	public CreatureBuilder WithLegs(Leg leg)
+	public CreatureBuilder WithLegs(Leg _leg, GameObject newObject)
 	{
-		creature.legs = leg;
-		leg.Apply(creature);
+		//creature.legs = _leg.Copy();
+		_leg.Apply(creature, newObject);
 		return (this);
 	}
-	public CreatureBuilder WithHead(Head head)
+	public CreatureBuilder WithHead(Head _head, GameObject newObject)
 	{
-		creature.head = head;
-		head.Apply(creature);
-		return (this);
-	}
-
-	public CreatureBuilder WithName(string name)
-	{
-		creature.creatureName = name;
+		//creature.head = _head.Copy();
+		_head.Apply(creature, newObject);
 		return (this);
 	}
 
-	public CreatureBuilder WithAbilities(List<Ability> abilities)
+	public CreatureBuilder WithName(string _name)
 	{
-		creature.abilities = new List<Ability>(abilities);
+		creature.creatureName = _name;
 		return (this);
 	}
-	public Creature Build()
+
+	public CreatureBuilder WithAbilities(List<Ability> _abilities)
+	{
+		creature.abilities = new List<Ability>(_abilities);
+		return (this);
+	}
+
+	//public CreatureBuilder WithObject(GameObject _object)
+	//{
+	//	creature.gameObject = _object;
+	//	return (this);
+	//}
+		public Creature Build()
 	{
 		return (creature);
 	}

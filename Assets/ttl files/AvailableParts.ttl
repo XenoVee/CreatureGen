@@ -1,0 +1,14 @@
+// Syntax: BodyPartType:BodyPartName
+
+Head:OrcHead
+Head:BirdHead
+Head:BugHead
+Arm:GorillaArm
+Arm:TentacleArm
+Arm:BirdArm
+Leg:GrashopperLeg
+Leg:FishLeg
+Leg:MultiLeg
+Torso:TurtleTorso
+Torso:PrimateTorso
+Torso:SalamanderTorso
