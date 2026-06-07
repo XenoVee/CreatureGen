@@ -35,25 +35,21 @@ public class CreatureBuilder
 	}
 	public CreatureBuilder WithTorso(Torso _torso, GameObject newObject)
 	{
-		//creature.torso = _torso.Copy();
 		_torso.Apply(creature, newObject);
 		return (this);
 	}
 	public CreatureBuilder WithArms(Arm _arm, GameObject newObject)
 	{
-		//creature.arms = _arm.Copy();
 		_arm.Apply(creature, newObject);
 		return (this);
 	}
 	public CreatureBuilder WithLegs(Leg _leg, GameObject newObject)
 	{
-		//creature.legs = _leg.Copy();
 		_leg.Apply(creature, newObject);
 		return (this);
 	}
 	public CreatureBuilder WithHead(Head _head, GameObject newObject)
 	{
-		//creature.head = _head.Copy();
 		_head.Apply(creature, newObject);
 		return (this);
 	}
@@ -69,12 +65,6 @@ public class CreatureBuilder
 		creature.abilities = new List<Ability>(_abilities);
 		return (this);
 	}
-
-	//public CreatureBuilder WithObject(GameObject _object)
-	//{
-	//	creature.gameObject = _object;
-	//	return (this);
-	//}
 		public Creature Build()
 	{
 		return (creature);

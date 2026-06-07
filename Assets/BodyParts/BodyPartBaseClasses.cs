@@ -23,7 +23,7 @@ public class BodyPart
 
 	public virtual void Apply(Creature target, GameObject newObject)
 	{
-		target.IncreaseHealth(BonusHealth);
+		target.IncreaseMaxHealth(BonusHealth);
 		target.IncreaseSpeed(BonusSpeed);
 		target.IncreaseStrength(BonusStrength);
 		target.IncreaseAbilityPower(BonusAbility);
@@ -36,7 +36,7 @@ public class BodyPart
 
 	public virtual void Remove(Creature target)
 	{
-		target.DecreaseHealth(BonusHealth);
+		target.DecreaseMaxHealth(BonusHealth);
 		target.DecreaseSpeed(BonusSpeed);
 		target.DecreaseStrength(BonusStrength);
 		target.DecreaseAbilityPower(BonusAbility);

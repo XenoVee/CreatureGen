@@ -10,65 +10,67 @@ public class Creature
 	public List<GameObject>		bodyParts = new List<GameObject>();
 
 
-	public float			maxHealth;
-	public float			speed;
-	public float			strength;
-	public float			abilityPower;
-
-	//public Torso			torso;
-	//public Head				head;
-	//public Arm				arms;
-	//public Leg				legs;
+	public float					maxHealth;
+	public float					speed;
+	public float					strength;
+	public float					abilityPower;
 
 	public List<Ability>			abilities;
 	public List<PersistentEffect>	activeEffects;
 	public float					currentHealth;
 
-	public int selectedMove;
-	TMP_Text combatLogText;
+	public int						selectedMove;
+	TMP_Text						combatLogText;
+	public string					creatureName;
 	public Creature(TMP_Text _combatLogText)
 	{
 		activeEffects = new List<PersistentEffect>();
 		combatLogText = _combatLogText;
 	}
 
-	public string	creatureName;
-	public float IncreaseHealth(float bonus)
+	public float IncreaseMaxHealth(float bonus)
 	{
 		maxHealth += bonus;
 		currentHealth += bonus;
 		return (maxHealth);
 	}
-	public float DecreaseHealth(float bonus)
+
+	public float DecreaseMaxHealth(float bonus)
 	{
 		maxHealth -= bonus;
 		return (maxHealth);
 	}
+
 	public float IncreaseSpeed(float bonus)
 	{
 		speed += bonus;
 		return (speed);
 	}
+
 	public float DecreaseSpeed(float bonus)
 	{
 		speed -= bonus;
 		return (speed);
 	}
+
 	public float IncreaseStrength(float bonus)
 	{
 		strength += bonus;
 		return (strength);
 	}
+
 	public float DecreaseStrength(float bonus)
 	{
 		strength -= bonus;
 		return (strength);
 	}
+
 	public float IncreaseAbilityPower(float bonus)
 	{
 		abilityPower += bonus;
 		return (abilityPower);
 	}
+
 	public float DecreaseAbilityPower(float bonus)
 	{
 		abilityPower -= bonus;

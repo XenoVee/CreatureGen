@@ -184,31 +184,33 @@ void Start()
 			{
 				UseMove(creatures[1], creatures[0]);
 			}
-			// definetely not neccesary WASD movement (for testing purposes)
-			float moveSpeed = 0.1f;
-			Vector3 moveVector = new();
-			if (Keyboard.current.aKey.IsPressed())
-			{
-				moveVector += (new Vector3(-moveSpeed, 0, 0));
-			}
-			else if (Keyboard.current.dKey.IsPressed())
-			{
-				moveVector += (new Vector3(moveSpeed, 0, 0));
-			}
-			if (Keyboard.current.sKey.IsPressed())
-			{
-				moveVector += (new Vector3(0, -moveSpeed, 0));
-			}
-			if (Keyboard.current.wKey.IsPressed())
-			{
-				moveVector += (new Vector3(0, moveSpeed, 0));
-			}
-			moveVector.Normalize();
-			moveVector *= moveSpeed;
-			allyCreature.Move(moveVector);
 		}
 	}
 
+	//// definetely not neccesary WASD movement (for testing purposes)
+	//float moveSpeed = 0.1f;
+	//Vector3 moveVector = new();
+	//if (Keyboard.current.aKey.IsPressed())
+	//{
+	//	moveVector += (new Vector3(-moveSpeed, 0, 0));
+	//}
+	//else if (Keyboard.current.dKey.IsPressed())
+	//{
+	//	moveVector += (new Vector3(moveSpeed, 0, 0));
+	//}
+	//if (Keyboard.current.sKey.IsPressed())
+	//{
+	//	moveVector += (new Vector3(0, -moveSpeed, 0));
+	//}
+	//if (Keyboard.current.wKey.IsPressed())
+	//{
+	//	moveVector += (new Vector3(0, moveSpeed, 0));
+	//}
+	//moveVector.Normalize();
+	//moveVector *= moveSpeed;
+	//allyCreature.Move(moveVector);
+
+	// generates a random ability using the effects loaded into the pool
 List<Ability> GenerateAbilities()
 	{
 		List<Ability> list = new List<Ability>();
@@ -234,7 +236,7 @@ List<Ability> GenerateAbilities()
 		return (list);
 	}
 
-	// attempts to load all body parts and ability effects in .ttl (things to load) file in the ttl folder.
+	// attempts to load all body parts and ability effects in .ttl (things to load) file in the ttl folder into the respective pools
 	void PreparePools()
 	{
 		foreach (var file in Directory.EnumerateFiles("Assets/ttl files", "*.ttl"))
@@ -251,6 +253,7 @@ List<Ability> GenerateAbilities()
 		}
 	}
 
+	// create an instance of bodypart/effect T and put it into the proper pool
 	int AddToPool<T>(string toCreate, List<T> list)
 	{
 		Type toCreateType = Type.GetType(toCreate, false);
