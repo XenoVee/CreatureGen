@@ -182,6 +182,7 @@ public class Creature
 		}
 		return (ret);
 	}
+
 	public Vector2 GetPosition()
 	{
 		return (new Vector2(bodyParts[0].transform.position.x,

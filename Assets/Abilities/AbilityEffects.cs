@@ -7,14 +7,14 @@ using static UnityEngine.Rendering.DebugUI;
 
 public interface IAbilityHandler
 {
-	public IAbilityHandler nextHandler { get; set; }
+	public IAbilityHandler	nextHandler { get; set; }
 	void Handle(float value, Creature user, Creature enemy, TMP_Text combatLogText);
 }
 
 public abstract class AbilityEffect : IAbilityHandler
 {
-	public IAbilityHandler nextHandler { get; set; }
-	public uint priority;
+	public IAbilityHandler	nextHandler { get; set; }
+	public uint				priority;
 
 	public void Handle(float value, Creature user, Creature enemy, TMP_Text combatLogText)
 	{
@@ -51,6 +51,7 @@ public class SelfHeal : AbilityEffect
 	{
 		return("Heal " + EffectiveValue(value, user));
 	}
+
 	public override AbilityEffect Copy()
 	{
 		SelfHeal copy = new SelfHeal();
@@ -60,12 +61,13 @@ public class SelfHeal : AbilityEffect
 
 public class Burn : AbilityEffect
 {
-	int baseDuration = 2;
+	int	baseDuration = 2;
 
 	public Burn()
 	{
 		priority = 20;
 	}
+
 	public override void Activate(float value, Creature user, Creature enemy, TMP_Text combatLogText)
 	{
 		int duration = (int)Mathf.Round(baseDuration + (float)(user.abilityPower * 0.1));
@@ -73,6 +75,7 @@ public class Burn : AbilityEffect
 		enemy.activeEffects.Add(new Burning((uint)duration, EffectiveValue(value, user)));
 		enemy.activeEffects = enemy.activeEffects.OrderBy(x => x.priority).ToList();
 	}
+
 	protected override int EffectiveValue(float value, Creature user)
 	{
 		return ((int)Mathf.Ceil(value * (float)(user.abilityPower * 0.5)));
@@ -82,6 +85,7 @@ public class Burn : AbilityEffect
 	{
 		return ("Burn " + EffectiveValue(value, user) + " for " + (int)Mathf.Round(baseDuration + (float)(user.abilityPower * 0.1)) + " turns");
 	}
+
 	public override AbilityEffect Copy()
 	{
 		Burn copy = new Burn();
@@ -110,9 +114,10 @@ public class Damage : AbilityEffect
 	{
 		return ("Deal " + EffectiveValue(value, user) + " damage");
 	}
+
 	public override AbilityEffect Copy()
 	{
-		Damage copy = new Damage();
+		Damage	copy = new Damage();
 		return (copy);
 	}
 }
@@ -123,24 +128,26 @@ public class Empower : AbilityEffect
 	{
 		priority = 0;
 	}
+
 	public override void Activate(float value, Creature user, Creature enemy, TMP_Text combatLogText)
 	{
 		combatLogText.text = (user.creatureName + " Buffs their Strength and Ability power by " + EffectiveValue(value, user) + "\n") + combatLogText.text;
 		user.IncreaseStrength(EffectiveValue(value, user));
 		user.IncreaseAbilityPower(EffectiveValue(value, user));
 	}
+
 	protected override int EffectiveValue(float value, Creature user)
 	{
 		return ((int)Mathf.Ceil((value / 2) * (float)(user.abilityPower * 0.4)));
 	}
-
 	public override string GetEffect(float value, Creature user)
 	{
 		return ("gain " + EffectiveValue(value, user) + " strength and ability");
 	}
+
 	public override AbilityEffect Copy()
 	{
-		Empower copy = new Empower();
+		Empower	copy = new Empower();
 		return (copy);
 	}
 }
@@ -151,11 +158,13 @@ public class Accellerate : AbilityEffect
 	{
 		priority = 5;
 	}
+
 	public override void Activate(float value, Creature user, Creature enemy, TMP_Text combatLogText)
 	{
 		combatLogText.text = (user.creatureName + " Buffs their speed by " + EffectiveValue(value, user) + "\n") + combatLogText.text;
 		user.IncreaseSpeed(EffectiveValue(value, user));
 	}
+
 	protected override int EffectiveValue(float value, Creature user)
 	{
 		return ((int)Mathf.Ceil((value / 2) * (float)(user.abilityPower * 0.5)));
@@ -167,7 +176,7 @@ public class Accellerate : AbilityEffect
 	}
 	public override AbilityEffect Copy()
 	{
-		Accellerate copy = new Accellerate();
+		Accellerate	copy = new Accellerate();
 		return (copy);
 	}
 }
@@ -180,6 +189,7 @@ public class MakeVulnerable : AbilityEffect
 	{
 		priority = 25;
 	}
+
 	public override void Activate(float value, Creature user, Creature enemy, TMP_Text combatLogText)
 	{
 		int duration = (int)Mathf.Round(baseDuration + (float)(user.abilityPower * 0.1));
@@ -187,6 +197,7 @@ public class MakeVulnerable : AbilityEffect
 		enemy.activeEffects.Add(new Vulnerable((uint)duration, EffectiveValue(value, user)));
 		enemy.activeEffects = enemy.activeEffects.OrderBy(x => x.priority).ToList();
 	}
+
 	protected override int EffectiveValue(float value, Creature user)
 	{
 		return ((int)Mathf.Ceil((value / 4) * (float)(user.abilityPower * 0.2)));
@@ -196,9 +207,10 @@ public class MakeVulnerable : AbilityEffect
 	{
 		return ("weaken " + EffectiveValue(value, user) + " for " + (int)Mathf.Round(baseDuration + (float)(user.abilityPower * 0.1)) + " turns");
 	}
+
 	public override AbilityEffect Copy()
 	{
-		MakeVulnerable copy = new MakeVulnerable();
+		MakeVulnerable	copy = new MakeVulnerable();
 		return (copy);
 	}
 }
@@ -211,13 +223,15 @@ public class Defend : AbilityEffect
 	{
 		priority = 25;
 	}
+
 	public override void Activate(float value, Creature user, Creature enemy, TMP_Text combatLogText)
 	{
-		int duration = (int)Mathf.Round(baseDuration + (float)(user.abilityPower * 0.1));
+		int	duration = (int)Mathf.Round(baseDuration + (float)(user.abilityPower * 0.1));
 		combatLogText.text = (user.creatureName + " defends for " + duration + " turns to take " + EffectiveValue(value, user) + " percent less damage\n") + combatLogText.text;
 		enemy.activeEffects.Add(new Blocking((uint)duration, EffectiveValue(value, user)));
 		enemy.activeEffects = enemy.activeEffects.OrderBy(x => x.priority).ToList();
 	}
+
 	protected override int EffectiveValue(float value, Creature user)
 	{
 		return ((int)Mathf.Ceil((value * 5) * (float)(user.abilityPower * 0.3)));
@@ -227,6 +241,7 @@ public class Defend : AbilityEffect
 	{
 		return ("defend " + EffectiveValue(value, user) + " percent, for " + (int)Mathf.Round(baseDuration + (float)(user.abilityPower * 0.1)) + " turns");
 	}
+
 	public override AbilityEffect Copy()
 	{
 		Defend copy = new Defend();

@@ -18,36 +18,43 @@ public class CreatureBuilder
 		creature.currentHealth = _health;
 		return (this);
 	}
+
 	public CreatureBuilder WithBaseSpeed(int _speed)
 	{
 		creature.speed = _speed;
 		return (this);
 	}
+
 	public CreatureBuilder WithBaseStrength(int _strength)
 	{
 		creature.strength = _strength;
 		return (this);
 	}
+
 	public CreatureBuilder WithBaseAbilityPower(int _abilityPower)
 	{
 		creature.abilityPower = _abilityPower;
 		return (this);
 	}
+
 	public CreatureBuilder WithTorso(Torso _torso, GameObject newObject)
 	{
 		_torso.Apply(creature, newObject);
 		return (this);
 	}
+
 	public CreatureBuilder WithArms(Arm _arm, GameObject newObject)
 	{
 		_arm.Apply(creature, newObject);
 		return (this);
 	}
+
 	public CreatureBuilder WithLegs(Leg _leg, GameObject newObject)
 	{
 		_leg.Apply(creature, newObject);
 		return (this);
 	}
+
 	public CreatureBuilder WithHead(Head _head, GameObject newObject)
 	{
 		_head.Apply(creature, newObject);
@@ -69,5 +76,4 @@ public class CreatureBuilder
 	{
 		return (creature);
 	}
-
 }

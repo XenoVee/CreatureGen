@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AbilityDecorator
 {
-	public float value;
-	public AbilityEffect effect;
+	public float			value;
+	public AbilityEffect	effect;
 
 	public AbilityDecorator(float value, AbilityEffect effect)
 	{

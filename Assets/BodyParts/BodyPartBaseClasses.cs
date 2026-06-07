@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BodyPart
 {
-	protected float		BonusHealth;
-	protected float		BonusSpeed;
-	protected float		BonusStrength;
-	protected float		BonusAbility;
-	protected string	partName;
-	protected string	spritePath;
-	protected GameObject gameObject;
+	protected float			BonusHealth;
+	protected float			BonusSpeed;
+	protected float			BonusStrength;
+	protected float			BonusAbility;
+	protected string		partName;
+	protected string		spritePath;
+	protected GameObject	gameObject;
 
 	public string GetName()
 	{
@@ -53,7 +53,6 @@ public class Head : BodyPart
 		base.Apply(target, newObject);
 		target.head = this;
 	}
-
 	public override void Remove(Creature target)
 	{
 		base.Remove(target);
@@ -63,7 +62,6 @@ public class Head : BodyPart
 	public Head Copy()
 	{
 		Head copy = new Head();
-
 		copy.BonusHealth = this.BonusHealth;
 		copy.BonusSpeed = this.BonusSpeed;
 		copy.BonusStrength = this.BonusStrength;
@@ -90,7 +88,6 @@ public class Arm : BodyPart
 	public Arm Copy()
 	{
 		Arm copy = new Arm();
-
 		copy.BonusHealth = this.BonusHealth;
 		copy.BonusSpeed = this.BonusSpeed;
 		copy.BonusStrength = this.BonusStrength;
@@ -117,7 +114,6 @@ public class Leg : BodyPart
 	public Leg Copy()
 	{
 		Leg copy = new Leg();
-
 		copy.BonusHealth = this.BonusHealth;
 		copy.BonusSpeed = this.BonusSpeed;
 		copy.BonusStrength = this.BonusStrength;
@@ -144,7 +140,6 @@ public class Torso : BodyPart
 	public Torso Copy()
 	{
 		Torso copy = new Torso();
-
 		copy.BonusHealth = this.BonusHealth;
 		copy.BonusSpeed = this.BonusSpeed;
 		copy.BonusStrength = this.BonusStrength;

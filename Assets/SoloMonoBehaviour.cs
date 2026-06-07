@@ -16,6 +16,7 @@ public class SoloMonoBehaviour : MonoBehaviour
 	List<Torso>					torsoPool = new ();
 	List<Leg>					legPool = new ();
 	List<AbilityEffect>			abilityEffectPool = new ();
+	List<Creature>				creatures = new List<Creature>();
 
 	[SerializeField] Vector2Int	baseHealthRange;
 	[SerializeField] Vector2Int	baseSpeedRange;
@@ -34,33 +35,29 @@ public class SoloMonoBehaviour : MonoBehaviour
 	[SerializeField] TMP_Text	gameOverScreenText;
 	[SerializeField] int		turnTime;
 
-	List<Creature> creatures = new List<Creature>();
-
-	[Header("Debug value Watcher")]
-	[SerializeField] private int cooldown = 0;
-
-	Creature	allyCreature;
-	Creature	enemyCreature;
-
+	private int					cooldown = 0;
+	Creature					allyCreature;
+	Creature					enemyCreature;
+	bool						gameOver = false;
 
 	//.part file delimiters
-	char[] ttlLineDelimiter = new char[] { '\n' };
-	char[] splitTypeName = new char[] { ':', ' ', '\t' };
+	char[]						ttlLineDelimiter = new char[] { '\n' };
+	char[]						splitTypeName = new char[] { ':', ' ', '\t' };
 
 void Start()
 	{
 		PreparePools();
 		for (int i = 0; i < 2; i++)
 		{
-			int rngTorso = UnityEngine.Random.Range(0, torsoPool.Count);
-			int rngHead = UnityEngine.Random.Range(0, headPool.Count);
-			int rngArm = UnityEngine.Random.Range(0, armPool.Count);
-			int rngLeg = UnityEngine.Random.Range(0, legPool.Count);
+			int	rngTorso = UnityEngine.Random.Range(0, torsoPool.Count);
+			int	rngHead = UnityEngine.Random.Range(0, headPool.Count);
+			int	rngArm = UnityEngine.Random.Range(0, armPool.Count);
+			int	rngLeg = UnityEngine.Random.Range(0, legPool.Count);
 
-			int rngHealth = (int)UnityEngine.Random.Range(baseHealthRange[0], baseHealthRange[1]);
-			int rngStrength = (int)UnityEngine.Random.Range(baseSpeedRange[0], baseSpeedRange[1]);
-			int rngSpeed = (int)UnityEngine.Random.Range(baseStrengthRange[0], baseStrengthRange[1]);
-			int rngAbilityPower = (int)UnityEngine.Random.Range(baseAbilityPowerRange[0], baseAbilityPowerRange[1]);
+			int	rngHealth = (int)UnityEngine.Random.Range(baseHealthRange[0], baseHealthRange[1]);
+			int	rngStrength = (int)UnityEngine.Random.Range(baseSpeedRange[0], baseSpeedRange[1]);
+			int	rngSpeed = (int)UnityEngine.Random.Range(baseStrengthRange[0], baseStrengthRange[1]);
+			int	rngAbilityPower = (int)UnityEngine.Random.Range(baseAbilityPowerRange[0], baseAbilityPowerRange[1]);
 
 			List<Ability> abilities = GenerateAbilities();
 
@@ -76,14 +73,12 @@ void Start()
 					.WithArms(armPool[rngArm], Instantiate(emptyCreaturePrefab))
 					.WithName(i == 0 ? "Your creature" : "Enemy Creature")
 					.WithAbilities(abilities)
-					.Build()
-				);
+					.Build());
 		}
-		Vector2 pos = new(-7, 0);
 		allyCreature = creatures[0];
 		enemyCreature = creatures[1];
-		allyCreature.SetPosition(pos);
-		enemyCreature.SetPosition(-pos);
+		allyCreature.SetPosition(-7, 0);
+		enemyCreature.SetPosition(7, 0);
 	}
 
 	void UseMove(Creature user, Creature target)
@@ -125,7 +120,6 @@ void Start()
 		}
 	}
 
-	bool gameOver = false;
 	void GameOver()
 	{
 		foreach (Creature creature in creatures)
@@ -145,7 +139,6 @@ void Start()
 		{
 			gameOverScreenText.text ="Victory";
 		}
-
 	}
 
 	void Update()
@@ -232,7 +225,6 @@ List<Ability> GenerateAbilities()
 			list.Add(ability);
 			ability.OrderEffects();
 		}
-
 		return (list);
 	}
 

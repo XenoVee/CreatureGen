@@ -12,6 +12,7 @@ public class Ability
 		this.value = _value;
 		effects = new List<AbilityEffect>();
 	}
+
 	public void AddEffect(AbilityEffect effect)
 	{
 		effects.Add(effect);
@@ -34,7 +35,7 @@ public class Ability
 
 	public string AbilityDescription(Creature user)
 	{
-		string ret = "";
+		string	ret = "";
 		foreach (AbilityEffect effect in effects)
 		{
 			ret += effect.GetEffect(value, user) + ", ";

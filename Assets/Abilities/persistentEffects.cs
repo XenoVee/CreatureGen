@@ -14,9 +14,9 @@ public interface IEffectHandler
 
 public class PersistentEffect : IEffectHandler
 {
-	public IEffectHandler nextHandler { get; set; }
-	public uint priority;
-	protected uint duration; // duration of 0 means it lasts the whole battle.
+	public			IEffectHandler nextHandler { get; set; }
+	public uint		priority;
+	protected uint	duration; // duration of 0 means it lasts the whole battle.
 
 	public void EndOfTurnHandle(Creature target)
 	{
@@ -49,14 +49,11 @@ public class PersistentEffect : IEffectHandler
 
 	public virtual void OnApply()
 	{
-
 	}
 
 	public virtual void OnRemove()
 	{
-
 	}
-
 }
 
 public class Burning : PersistentEffect
@@ -82,12 +79,10 @@ public class Burning : PersistentEffect
 
 	public override void OnApply()
 	{
-
 	}
 
 	public override void OnRemove()
 	{
-
 	}
 }
 
@@ -114,12 +109,10 @@ public class Vulnerable : PersistentEffect
 
 	public override void OnApply()
 	{
-
 	}
 
 	public override void OnRemove()
 	{
-
 	}
 }
 
@@ -142,17 +135,14 @@ public class Blocking : PersistentEffect
 	protected override void OnDamageActivate(ref float damage)
 	{
 		int reducer = Mathf.CeilToInt(damage * (damageReduction / 100));
-
 		damage -= reducer;
 	}
 
 	public override void OnApply()
 	{
-
 	}
 
 	public override void OnRemove()
 	{
-
 	}
 }
