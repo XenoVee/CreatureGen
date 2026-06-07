@@ -49,15 +49,15 @@ void Start()
 		PreparePools();
 		for (int i = 0; i < 2; i++)
 		{
-			int	rngTorso = UnityEngine.Random.Range(0, torsoPool.Count);
-			int	rngHead = UnityEngine.Random.Range(0, headPool.Count);
-			int	rngArm = UnityEngine.Random.Range(0, armPool.Count);
-			int	rngLeg = UnityEngine.Random.Range(0, legPool.Count);
+			int rngTorso = UnityEngine.Random.Range(0, torsoPool.Count);
+			int rngHead = UnityEngine.Random.Range(0, headPool.Count);
+			int rngArm = UnityEngine.Random.Range(0, armPool.Count);
+			int rngLeg = UnityEngine.Random.Range(0, legPool.Count);
 
-			int	rngHealth = (int)UnityEngine.Random.Range(baseHealthRange[0], baseHealthRange[1]);
-			int	rngStrength = (int)UnityEngine.Random.Range(baseSpeedRange[0], baseSpeedRange[1]);
-			int	rngSpeed = (int)UnityEngine.Random.Range(baseStrengthRange[0], baseStrengthRange[1]);
-			int	rngAbilityPower = (int)UnityEngine.Random.Range(baseAbilityPowerRange[0], baseAbilityPowerRange[1]);
+			int rngHealth = (int)UnityEngine.Random.Range(baseHealthRange[0], baseHealthRange[1]);
+			int rngStrength = (int)UnityEngine.Random.Range(baseSpeedRange[0], baseSpeedRange[1]);
+			int rngSpeed = (int)UnityEngine.Random.Range(baseStrengthRange[0], baseStrengthRange[1]);
+			int rngAbilityPower = (int)UnityEngine.Random.Range(baseAbilityPowerRange[0], baseAbilityPowerRange[1]);
 
 			List<Ability> abilities = GenerateAbilities();
 
@@ -231,7 +231,8 @@ List<Ability> GenerateAbilities()
 	// attempts to load all body parts and ability effects in .ttl (things to load) file in the ttl folder into the respective pools
 	void PreparePools()
 	{
-		foreach (var file in Directory.EnumerateFiles("Assets/ttl files", "*.ttl"))
+		Debug.Log(Application.streamingAssetsPath);
+		foreach (var file in Directory.EnumerateFiles(Application.streamingAssetsPath + "/ttl files", "*.ttl"))
 		{
 			string contents = File.ReadAllText(file);
 			foreach (string splitContent in contents.Split(ttlLineDelimiter))

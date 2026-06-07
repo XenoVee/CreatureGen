@@ -1,5 +1,3 @@
-
-
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
