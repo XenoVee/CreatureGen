@@ -1,6 +1,7 @@
 
 
 using Unity.IO.LowLevel.Unsafe;
+using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -124,13 +125,13 @@ public class Vulnerable : PersistentEffect
 
 public class Blocking : PersistentEffect
 {
-	int damageReduction;
+	float damageReduction;
 
 	public Blocking(uint _defTimer, int _damageReduction)
 	{
 		duration = _defTimer;
 		damageReduction = _damageReduction;
-		priority = 19;
+		priority = 21;
 	}
 
 	protected override void EndOfTurnActivate(Creature target)
@@ -140,7 +141,9 @@ public class Blocking : PersistentEffect
 
 	protected override void OnDamageActivate(ref float damage)
 	{
-		damage -= damageReduction;
+		int reducer = Mathf.CeilToInt(damage * (damageReduction / 100));
+
+		damage -= reducer;
 	}
 
 	public override void OnApply()

@@ -1,4 +1,5 @@
 using System.Security.Cryptography;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class BodyPart
@@ -40,22 +41,24 @@ public class BodyPart
 		target.DecreaseSpeed(BonusSpeed);
 		target.DecreaseStrength(BonusStrength);
 		target.DecreaseAbilityPower(BonusAbility);
+		target.bodyParts.Remove(gameObject);
+		Object.Destroy(gameObject);
 	}
 }
 
 public class Head : BodyPart
 {
-	//public override void Apply(Creature target)
-	//{
-	//	base.Apply(target);
-	//	target.head = this;
-	//}
+	public override void Apply(Creature target, GameObject newObject)
+	{
+		base.Apply(target, newObject);
+		target.head = this;
+	}
 
-	//public override void Remove(Creature target)
-	//{
-	//	base.Remove(target);
-	//	target.head = null;
-	//}
+	public override void Remove(Creature target)
+	{
+		base.Remove(target);
+		target.head = null;
+	}
 
 	public Head Copy()
 	{
@@ -72,19 +75,17 @@ public class Head : BodyPart
 
 public class Arm : BodyPart
 {
-	//public override void Apply(Creature target)
-	//{
-	//	base.Apply(target);
-	//	target.arms = this;
+	public override void Apply(Creature target, GameObject newObject)
+	{
+		base.Apply(target, newObject);
+		target.arms = this;
+	}
 
-	//}
-
-	//public override void Remove(Creature target)
-	//{
-	//	base.Remove(target);
-	//	target.arms = null;
-
-	//}
+	public override void Remove(Creature target)
+	{
+		base.Remove(target);
+		target.arms = null;
+	}
 
 	public Arm Copy()
 	{
@@ -101,19 +102,17 @@ public class Arm : BodyPart
 
 public class Leg : BodyPart
 {
-	//public override void Apply(Creature target)
-	//{
-	//	base.Apply(target);
-	//	target.legs = this;
+	public override void Apply(Creature target, GameObject newObject)
+	{
+		base.Apply(target, newObject);
+		target.legs = this;
+	}
 
-	//}
-
-	//public override void Remove(Creature target)
-	//{
-	//	base.Remove(target);
-	//	target.legs = null;
-
-	//}
+	public override void Remove(Creature target)
+	{
+		base.Remove(target);
+		target.legs = null;
+	}
 
 	public Leg Copy()
 	{
@@ -130,17 +129,17 @@ public class Leg : BodyPart
 
 public class Torso : BodyPart
 {
-	//public override void Apply(Creature target)
-	//{
-	//	base.Apply(target);
-	//	target.torso = this;
-	//}
+	public override void Apply(Creature target, GameObject newObject)
+	{
+		base.Apply(target, newObject);
+		target.torso = this;
+	}
 
-	//public override void Remove(Creature target)
-	//{
-	//	base.Remove(target);
-	//	target.torso = null;
-	//}
+	public override void Remove(Creature target)
+	{
+		base.Remove(target);
+		target.torso = null;
+	}
 
 	public Torso Copy()
 	{

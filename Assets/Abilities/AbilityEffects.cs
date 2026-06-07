@@ -214,18 +214,18 @@ public class Defend : AbilityEffect
 	public override void Activate(float value, Creature user, Creature enemy, TMP_Text combatLogText)
 	{
 		int duration = (int)Mathf.Round(baseDuration + (float)(user.abilityPower * 0.1));
-		combatLogText.text = (user.creatureName + " defends for " + duration + " turns to take " + EffectiveValue(value, user) + " less damage\n") + combatLogText.text;
+		combatLogText.text = (user.creatureName + " defends for " + duration + " turns to take " + EffectiveValue(value, user) + " percent less damage\n") + combatLogText.text;
 		enemy.activeEffects.Add(new Blocking((uint)duration, EffectiveValue(value, user)));
 		enemy.activeEffects = enemy.activeEffects.OrderBy(x => x.priority).ToList();
 	}
 	protected override int EffectiveValue(float value, Creature user)
 	{
-		return ((int)Mathf.Ceil((value / 2) * (float)(user.abilityPower * 0.3)));
+		return ((int)Mathf.Ceil((value * 5) * (float)(user.abilityPower * 0.3)));
 	}
 
 	public override string GetEffect(float value, Creature user)
 	{
-		return ("defend " + EffectiveValue(value, user) + " for " + (int)Mathf.Round(baseDuration + (float)(user.abilityPower * 0.1)) + " turns");
+		return ("defend " + EffectiveValue(value, user) + " percent, for " + (int)Mathf.Round(baseDuration + (float)(user.abilityPower * 0.1)) + " turns");
 	}
 	public override AbilityEffect Copy()
 	{

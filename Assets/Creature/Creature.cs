@@ -15,6 +15,11 @@ public class Creature
 	public float					strength;
 	public float					abilityPower;
 
+	public Head						head;
+	public Torso					torso;
+	public Arm						arms;
+	public Leg						legs;
+
 	public List<Ability>			abilities;
 	public List<PersistentEffect>	activeEffects;
 	public float					currentHealth;
