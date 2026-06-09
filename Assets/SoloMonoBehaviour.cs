@@ -77,8 +77,8 @@ void Start()
 		}
 		allyCreature = creatures[0];
 		enemyCreature = creatures[1];
-		allyCreature.SetPosition(-7, 0);
-		enemyCreature.SetPosition(7, 0);
+		allyCreature.SetPosition(-5, 0);
+		enemyCreature.SetPosition(5, 0);
 	}
 
 	void UseMove(Creature user, Creature target)

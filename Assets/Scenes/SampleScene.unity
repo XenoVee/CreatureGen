@@ -823,12 +823,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 619394800}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -960, y: -540, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1113109423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &968536530
 GameObject:
@@ -866,7 +866,7 @@ MonoBehaviour:
   abilityAmountRange: {x: 4, y: 4}
   abilityValueBase: {x: 1.4, y: 1.6}
   abilityAdditionalValuePerEffectRange: {x: -0.4, y: -0.3}
-  effectsPerAbilityRange: {x: 1, y: 1}
+  effectsPerAbilityRange: {x: 1, y: 3}
   emptyCreaturePrefab: {fileID: 7378682529671743813, guid: f51f1d7aa1589ff4f8ecb75154014935, type: 3}
   allyHealthText: {fileID: 39793473}
   enemyHealthText: {fileID: 1148730492}
@@ -988,6 +988,7 @@ RectTransform:
   - {fileID: 1203850990}
   - {fileID: 453357515}
   - {fileID: 1148730491}
+  - {fileID: 619394802}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1274,7 +1275,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
-  - {fileID: 619394802}
   - {fileID: 968536532}
   - {fileID: 1113109423}
   - {fileID: 121959410}
