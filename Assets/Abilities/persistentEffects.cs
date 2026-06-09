@@ -1,4 +1,5 @@
 using Unity.IO.LowLevel.Unsafe;
+using System.Linq;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.Rendering.DebugUI;
@@ -35,21 +36,33 @@ public class PersistentEffect : IEffectHandler
 			duration -= 1;
 			if (duration <= 0)
 			{
-				//You should remove YOURself, NOW!
-				target.activeEffects.Remove(this);
+				this.Remove(target);
 			}
 		}
+	}
+
+	public void Apply(Creature target)
+	{
+		target.activeEffects.Add(this);
+		target.activeEffects = target.activeEffects.OrderBy(x => x.priority).ToList();
+		this.OnApply();
+	}
+	public void Remove(Creature target)
+	{
+		//You should remove YOURself, NOW!
+		this.OnRemove(target);
+		target.activeEffects.Remove(this);
 	}
 
 	protected virtual void OnDamageActivate(ref float damage)
 	{
 	}
 
-	public virtual void OnApply()
+	protected virtual void OnApply()
 	{
 	}
 
-	public virtual void OnRemove()
+	protected virtual void OnRemove(Creature target)
 	{
 	}
 }
@@ -75,11 +88,11 @@ public class Burning : PersistentEffect
 	{
 	}
 
-	public override void OnApply()
+	protected override void OnApply()
 	{
 	}
 
-	public override void OnRemove()
+	protected override void OnRemove(Creature target)
 	{
 	}
 }
@@ -105,20 +118,20 @@ public class Vulnerable : PersistentEffect
 		damage += bonusDamage;
 	}
 
-	public override void OnApply()
+	protected override void OnApply()
 	{
 	}
 
-	public override void OnRemove()
+	protected override void OnRemove(Creature target)
 	{
 	}
 }
 
-public class Blocking : PersistentEffect
+public class Defending : PersistentEffect
 {
 	float damageReduction;
 
-	public Blocking(uint _defTimer, int _damageReduction)
+	public Defending(uint _defTimer, int _damageReduction)
 	{
 		duration = _defTimer;
 		damageReduction = _damageReduction;
@@ -136,11 +149,41 @@ public class Blocking : PersistentEffect
 		damage -= reducer;
 	}
 
-	public override void OnApply()
+	protected override void OnApply()
 	{
 	}
 
-	public override void OnRemove()
+	protected override void OnRemove(Creature target)
 	{
+	}
+}
+
+public class TimeBomb : PersistentEffect
+{
+	int BombDamage;
+
+	public TimeBomb(uint _burnTimer, int _BombDamage)
+	{
+		duration = _burnTimer;
+		BombDamage = _BombDamage;
+		priority = 200;
+	}
+
+	protected override void EndOfTurnActivate(Creature target)
+	{
+		base.EndOfTurnActivate(target);
+	}
+
+	protected override void OnDamageActivate(ref float damage)
+	{
+	}
+
+	protected override void OnApply()
+	{
+	}
+
+	protected override void OnRemove(Creature target)
+	{
+		target.TakeDamage(BombDamage);
 	}
 }

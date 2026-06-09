@@ -1,8 +1,5 @@
 using TMPro;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
-using System.Linq;
-using static UnityEngine.Rendering.DebugUI;
 
 public interface IAbilityHandler
 {
@@ -71,8 +68,7 @@ public class Burn : AbilityEffect
 	{
 		int duration = (int)Mathf.Round(baseDuration + (float)(user.abilityPower * 0.1));
 		combatLogText.text = (user.creatureName + " burns their target for " + EffectiveValue(value, user) + " damage per turn for " + duration + " turns\n") + combatLogText.text;
-		enemy.activeEffects.Add(new Burning((uint)duration, EffectiveValue(value, user)));
-		enemy.activeEffects = enemy.activeEffects.OrderBy(x => x.priority).ToList();
+		new Burning((uint)duration, EffectiveValue(value, user)).Apply(enemy);
 	}
 
 	protected override int EffectiveValue(float value, Creature user)
@@ -193,8 +189,7 @@ public class MakeVulnerable : AbilityEffect
 	{
 		int duration = (int)Mathf.Round(baseDuration + (float)(user.abilityPower * 0.1));
 		combatLogText.text = (user.creatureName + " weakens their target for " + duration + " turns to take " + EffectiveValue(value, user) + " extra damage\n") + combatLogText.text;
-		enemy.activeEffects.Add(new Vulnerable((uint)duration, EffectiveValue(value, user)));
-		enemy.activeEffects = enemy.activeEffects.OrderBy(x => x.priority).ToList();
+		new Vulnerable((uint)duration, EffectiveValue(value, user)).Apply(enemy);
 	}
 
 	protected override int EffectiveValue(float value, Creature user)
@@ -227,8 +222,7 @@ public class Defend : AbilityEffect
 	{
 		int	duration = (int)Mathf.Round(baseDuration + (float)(user.abilityPower * 0.1));
 		combatLogText.text = (user.creatureName + " defends for " + duration + " turns to take " + EffectiveValue(value, user) + " percent less damage\n") + combatLogText.text;
-		enemy.activeEffects.Add(new Blocking((uint)duration, EffectiveValue(value, user)));
-		enemy.activeEffects = enemy.activeEffects.OrderBy(x => x.priority).ToList();
+		new Defending((uint)duration, EffectiveValue(value, user)).Apply(user);
 	}
 
 	protected override int EffectiveValue(float value, Creature user)
@@ -244,6 +238,39 @@ public class Defend : AbilityEffect
 	public override AbilityEffect Copy()
 	{
 		Defend copy = new Defend();
+		return (copy);
+	}
+}
+
+public class ApplyTimeBomb : AbilityEffect
+{
+	int baseDuration = 4;
+
+	public ApplyTimeBomb()
+	{
+		priority = 50;
+	}
+
+	public override void Activate(float value, Creature user, Creature enemy, TMP_Text combatLogText)
+	{
+		int duration = baseDuration;
+		combatLogText.text = (user.creatureName + " will detonate its opponent after " + duration + " turns for " + EffectiveValue(value, user) + " damage\n") + combatLogText.text;
+		new TimeBomb((uint)duration, EffectiveValue(value, user)).Apply(enemy);
+	}
+
+	protected override int EffectiveValue(float value, Creature user)
+	{
+		return ((int)Mathf.Ceil((value * 6) * (float)(user.strength * 0.3)));
+	}
+
+	public override string GetEffect(float value, Creature user)
+	{
+		return ("deal " + EffectiveValue(value, user) + " damage, after " + baseDuration + " turns");
+	}
+
+	public override AbilityEffect Copy()
+	{
+		ApplyTimeBomb copy = new ApplyTimeBomb();
 		return (copy);
 	}
 }

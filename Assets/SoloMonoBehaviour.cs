@@ -137,7 +137,7 @@ void Start()
 		}
 		else
 		{
-			gameOverScreenText.text ="Victory";
+			gameOverScreenText.text = "Victory";
 		}
 	}
 

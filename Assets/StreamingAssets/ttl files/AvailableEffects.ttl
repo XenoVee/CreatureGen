@@ -7,3 +7,4 @@ Effect:Empower
 Effect:Accellerate
 Effect:MakeVulnerable
 Effect:Defend
+Effect:ApplyTimeBomb
