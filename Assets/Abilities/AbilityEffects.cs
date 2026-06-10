@@ -265,7 +265,7 @@ public class ApplyTimeBomb : AbilityEffect
 
 	public override string GetEffect(float value, Creature user)
 	{
-		return ("deal " + EffectiveValue(value, user) + " damage, after " + baseDuration + " turns");
+		return ("deal " + EffectiveValue(value, user) + " damage after " + baseDuration + " turns");
 	}
 
 	public override AbilityEffect Copy()
